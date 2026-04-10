@@ -1,40 +1,6 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160/build/three.module.js";
 import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/loaders/GLTFLoader.js";
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.152/build/three.module.js";
-import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.152/examples/jsm/loaders/GLTFLoader.js";
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
-
-// ışık
-const light = new THREE.HemisphereLight(0xffffff, 0x444444);
-scene.add(light);
-
-// kamera
-camera.position.set(0, 1.5, 3);
-
-// loader
-const loader = new GLTFLoader();
-
-loader.load("model.glb", function (gltf) {
-  const model = gltf.scene;
-  scene.add(model);
-
-  model.position.set(0, 0, 0);
-}, undefined, function (error) {
-  console.error(error);
-});
-
-// animasyon loop
-function animate() {
-  requestAnimationFrame(animate);
-  renderer.render(scene, camera);
-}
-animate();
 const canvas = document.getElementById("avatarCanvas");
 const statusText = document.getElementById("status");
 
@@ -52,10 +18,10 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 const light = new THREE.HemisphereLight(0xffffff, 0x444444);
 scene.add(light);
 
-// LOAD AVATAR
+// LOAD MODEL
 const loader = new GLTFLoader();
 
-loader.load("./avatar.glb", (gltf) => {
+loader.load("model.glb", (gltf) => {
   const model = gltf.scene;
   scene.add(model);
 
@@ -66,9 +32,11 @@ loader.load("./avatar.glb", (gltf) => {
   });
 
   playAnimation("idle");
+}, undefined, (err) => {
+  console.error("MODEL HATASI:", err);
 });
 
-// ANIMATION PLAY
+// ANIMATION
 function playAnimation(name) {
   if (!actions[name]) return;
 
