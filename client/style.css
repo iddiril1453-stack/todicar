@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  text-align: center;
+  background: #111;
+  color: white;
+}
+
+button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px;
+}
+
+#status {
+  position: absolute;
+  top: 60px;
+  left: 20px;
+}
+
+canvas {
+  width: 100vw;
+  height: 100vh;
+}
