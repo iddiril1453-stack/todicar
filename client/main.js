@@ -9,21 +9,30 @@ let mixer, actions = {}, currentAction;
 // SCENE
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 100);
-camera.position.set(0, 1.5, 3);
+camera.position.set(0, 1.2, 5);
 
 const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 // LIGHT
-const light = new THREE.HemisphereLight(0xffffff, 0x444444);
-scene.add(light);
+const light2 = new THREE.DirectionalLight(0xffffff, 1);
+light2.position.set(2, 5, 2);
+scene.add(light2);
 
 // LOAD MODEL
 const loader = new GLTFLoader();
 
 loader.load("model.glb", (gltf) => {
   const model = gltf.scene;
+
+  // 💥 EKLE
+  model.scale.set(1.5, 1.5, 1.5);
+  model.position.set(0, -1, 0);
+
   scene.add(model);
+
+  console.log("MODEL YÜKLENDİ");
+});
 
   mixer = new THREE.AnimationMixer(model);
 
@@ -52,6 +61,7 @@ function animate() {
   if (mixer) mixer.update(0.01);
   renderer.render(scene, camera);
 }
+renderer.setClearColor(0x222222);
 animate();
 
 // 🎤 SPEECH
